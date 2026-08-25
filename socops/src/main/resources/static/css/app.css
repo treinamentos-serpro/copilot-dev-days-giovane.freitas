@@ -365,8 +365,131 @@ button:focus-visible {
     font-family: "Courier New", monospace;
     font-size: 0.67rem;
     letter-spacing: 0.08em;
-    margin: 1.5rem 0 0;
+    margin: 1.25rem 0 0;
     text-transform: uppercase;
+}
+
+/* ── lobby two-column layout ───────────────────────────────────── */
+.lobby-layout {
+    align-items: center;
+    display: grid;
+    gap: 3rem;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    max-width: 860px;
+    position: relative;
+    width: 100%;
+    z-index: 1;
+}
+
+.lobby-content {
+    min-width: 0;
+}
+
+.lobby-cta {
+    margin-bottom: 1.5rem;
+}
+
+/* ── decorative preview board ──────────────────────────────────── */
+.lobby-preview-col {
+    min-width: 0;
+}
+
+.preview-label {
+    color: var(--muted);
+    font-family: "Courier New", monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    margin-bottom: 0.5rem;
+    opacity: 0.55;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.preview-board {
+    display: grid;
+    gap: 0.3rem;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    pointer-events: none;
+    user-select: none;
+    width: 100%;
+}
+
+.preview-cell {
+    aspect-ratio: 1 / 1;
+    border-radius: 3px;
+    font-family: "Courier New", monospace;
+    font-size: 0.52rem;
+    line-height: 1.2;
+    overflow: hidden;
+    padding: 0.3rem;
+    position: relative;
+    text-align: center;
+    word-break: break-word;
+    /* default open state */
+    background: var(--surface);
+    border: 1px solid var(--line);
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.preview-cell.tile-marked {
+    background: rgba(184, 243, 75, 0.12);
+    border-color: var(--lime);
+    color: var(--lime);
+}
+
+.preview-cell.tile-marked .tile-check {
+    color: var(--lime);
+    font-family: "Courier New", monospace;
+    font-size: 0.6rem;
+    font-weight: 700;
+    position: absolute;
+    right: 0.15rem;
+    top: 0.15rem;
+}
+
+.preview-cell.tile-winning {
+    background: rgba(255, 200, 87, 0.18);
+    border-color: var(--amber);
+    color: var(--amber);
+    animation: preview-pulse 1200ms ease-in-out infinite alternate;
+}
+
+.preview-free {
+    background: rgba(82, 230, 224, 0.1);
+    border-color: var(--cyan);
+    color: var(--cyan);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+}
+
+@keyframes preview-pulse {
+    from { box-shadow: 0 0 4px rgba(255, 200, 87, 0.12); }
+    to   { box-shadow: 0 0 12px rgba(255, 200, 87, 0.38); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .preview-cell.tile-winning { animation: none; }
+}
+
+/* mobile: collapse to single column */
+@media (max-width: 680px) {
+    .lobby-layout {
+        gap: 2rem;
+        grid-template-columns: 1fr;
+    }
+
+    .lobby-preview-col {
+        order: -1;
+    }
+
+    .preview-board {
+        max-width: 320px;
+        margin: 0 auto;
+    }
 }
 
 .game-screen {
