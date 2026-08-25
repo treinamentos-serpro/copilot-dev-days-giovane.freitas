@@ -17,31 +17,76 @@
 <!-- ============================================================= -->
 <!--  LOBBY — visible before a game starts                          -->
 <!-- ============================================================= -->
-<div id="lobbyView" class="lobby-screen flex flex-col items-center justify-center min-h-full p-6">
-    <div class="lobby-shell text-center max-w-sm">
-        <div class="brand-lockup" aria-label="Soc Ops Social Bingo">
-            <span class="brand-kicker">SOCIAL BINGO // 01</span>
-            <h1 class="brand-title">Soc <span>Ops</span></h1>
-            <p class="brand-subtitle">Find your people.</p>
-        </div>
+<div id="lobbyView" class="lobby-screen min-h-full">
 
-        <div class="instructions-panel text-left mb-8">
-            <div class="panel-heading">
-                <span class="status-dot" aria-hidden="true"></span>
-                <h2>Mission briefing</h2>
+    <!-- Decorative small grid accent (aria-hidden) -->
+    <div class="lobby-grid-accent" aria-hidden="true">
+        <div class="lobby-grid-cells">
+            <span></span><span></span><span></span>
+            <span></span><span></span><span></span>
+            <span></span><span></span><span></span>
+        </div>
+    </div>
+
+    <!-- Asymmetric editorial wrapper -->
+    <div class="lobby-editorial">
+
+        <!-- LEFT COLUMN: wordmark + CTA -->
+        <div class="lobby-left">
+
+            <!-- Kicker + wordmark -->
+            <div class="brand-lockup lobby-anim-1" aria-label="Soc Ops Social Bingo">
+                <span class="brand-kicker">SOCIAL BINGO // 01</span>
+                <h1 class="brand-title">Soc<br><span>Ops</span></h1>
+                <p class="brand-subtitle">Find your people.</p>
             </div>
-            <ol class="instructions-list">
-                <li><span>01</span> Find people who match the prompts</li>
-                <li><span>02</span> Tap a square when you find a match</li>
-                <li><span>03</span> Complete a line to call BINGO</li>
-            </ol>
+
+            <!-- Primary CTA -->
+            <button onclick="launchGame()" class="primary-action lobby-cta font-semibold text-lg lobby-anim-2" aria-label="Start a new game">
+                <span>Start a new game</span>
+                <span class="action-arrow" aria-hidden="true">-&gt;</span>
+            </button>
+
+            <!-- Operational metadata rail -->
+            <div class="meta-rail lobby-anim-3" aria-label="Game metadata">
+                <span class="meta-item"><span class="meta-label">MODE</span> ICEBREAKER</span>
+                <span class="meta-sep" aria-hidden="true">//</span>
+                <span class="meta-item"><span class="meta-label">GRID</span> 5×5</span>
+                <span class="meta-sep" aria-hidden="true">//</span>
+                <span class="meta-item"><span class="meta-label">PROMPTS</span> 25</span>
+            </div>
+
+            <p class="lobby-footnote lobby-anim-3">25 prompts. Infinite conversations.</p>
         </div>
 
-        <button onclick="launchGame()" class="primary-action w-full font-semibold py-4 px-8 text-lg accent-active transition-colors">
-            <span>Start a new game</span>
-            <span class="action-arrow" aria-hidden="true">-&gt;</span>
-        </button>
-        <p class="lobby-footnote">25 prompts. Infinite conversations.</p>
+        <!-- RIGHT COLUMN: briefing editorial block -->
+        <div class="lobby-right lobby-anim-4">
+            <div class="instructions-panel text-left">
+                <div class="panel-heading">
+                    <span class="status-dot" aria-hidden="true"></span>
+                    <h2>Mission briefing</h2>
+                </div>
+                <ol class="instructions-list">
+                    <li><span>01</span> Find people who match the prompts</li>
+                    <li><span>02</span> Tap a square when you find a match</li>
+                    <li><span>03</span> Complete a line to call BINGO</li>
+                </ol>
+            </div>
+
+            <!-- Small geometric grid accent -->
+            <div class="geo-accent" aria-hidden="true">
+                <svg viewBox="0 0 60 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <line x1="0" y1="10" x2="60" y2="10" stroke="currentColor" stroke-width="0.5"/>
+                    <line x1="10" y1="0" x2="10" y2="20" stroke="currentColor" stroke-width="0.5"/>
+                    <line x1="30" y1="0" x2="30" y2="20" stroke="currentColor" stroke-width="0.5"/>
+                    <line x1="50" y1="0" x2="50" y2="20" stroke="currentColor" stroke-width="0.5"/>
+                    <rect x="8" y="8" width="4" height="4" fill="currentColor" opacity="0.7"/>
+                    <rect x="28" y="8" width="4" height="4" fill="currentColor" opacity="0.4"/>
+                    <rect x="48" y="8" width="4" height="4" fill="currentColor" opacity="0.2"/>
+                </svg>
+            </div>
+        </div>
+
     </div>
 </div>
 

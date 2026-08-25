@@ -221,22 +221,72 @@ button:focus-visible {
     position: relative;
 }
 
-.lobby-screen::before {
-    background: var(--cyan);
-    box-shadow: 0 0 70px 30px rgba(82, 230, 224, 0.11);
-    content: "";
-    height: 1px;
-    left: 10%;
+/* Decorative 3×3 grid accent cells */
+.lobby-grid-accent {
+    pointer-events: none;
     position: absolute;
-    top: 18%;
-    width: 80%;
+    right: 0;
+    top: 0;
+    z-index: 0;
+    opacity: 0.18;
 }
 
-.lobby-shell {
-    animation: lobby-rise 600ms ease-out both;
+.lobby-grid-cells {
+    display: grid;
+    gap: 3px;
+    grid-template-columns: repeat(3, 22px);
+    padding: 1.5rem;
+}
+
+.lobby-grid-cells span {
+    border: 1px solid var(--cyan);
+    display: block;
+    height: 22px;
+    width: 22px;
+}
+
+/* Asymmetric two-column editorial layout */
+.lobby-editorial {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 5vh 5vw 4vh;
     position: relative;
-    width: 100%;
     z-index: 1;
+}
+
+.lobby-left {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    max-width: 400px;
+    padding-top: 6vh;
+    width: 100%;
+}
+
+.lobby-right {
+    display: flex;
+    flex: 0 0 260px;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-top: 12vh;
+}
+
+/* Staggered entrance animations */
+.lobby-anim-1 {
+    animation: lobby-rise 550ms 80ms ease-out both;
+}
+.lobby-anim-2 {
+    animation: lobby-rise 550ms 220ms ease-out both;
+}
+.lobby-anim-3 {
+    animation: lobby-rise 550ms 360ms ease-out both;
+}
+.lobby-anim-4 {
+    animation: lobby-rise 550ms 480ms ease-out both;
 }
 
 .brand-lockup {
@@ -360,12 +410,61 @@ button:focus-visible {
     font-size: 1.2em;
 }
 
+.lobby-cta {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+    padding: 1rem 1.5rem;
+    width: 100%;
+}
+
+/* Operational metadata rail */
+.meta-rail {
+    align-items: center;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    display: flex;
+    flex-wrap: wrap;
+    font-family: "Courier New", monospace;
+    font-size: 0.65rem;
+    gap: 0.4rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+    padding-top: 0.8rem;
+    text-transform: uppercase;
+}
+
+.meta-label {
+    color: var(--cyan);
+    margin-right: 0.2em;
+}
+
+.meta-sep {
+    color: var(--line);
+    font-size: 0.6rem;
+}
+
+/* Geometric SVG accent */
+.geo-accent {
+    color: var(--cyan);
+    margin-top: 0.5rem;
+    opacity: 0.35;
+    width: 100%;
+}
+
+.geo-accent svg {
+    display: block;
+    height: auto;
+    width: 100%;
+}
+
 .lobby-footnote {
-    color: #52606d;
+    color: var(--muted);
     font-family: "Courier New", monospace;
     font-size: 0.67rem;
     letter-spacing: 0.08em;
-    margin: 1.5rem 0 0;
+    margin: 0;
     text-transform: uppercase;
 }
 
@@ -519,6 +618,26 @@ button:focus-visible {
 @keyframes winner-pulse {
     from { box-shadow: 0 0 5px rgba(255, 200, 87, 0.18); }
     to { box-shadow: 0 0 18px rgba(255, 200, 87, 0.45); }
+}
+
+@media (max-width: 640px) {
+    .lobby-editorial {
+        flex-direction: column;
+        gap: 2rem;
+        padding: 3vh 1.25rem 3vh;
+    }
+    .lobby-left {
+        max-width: 100%;
+        padding-top: 2vh;
+    }
+    .lobby-right {
+        flex: none;
+        padding-top: 0;
+        width: 100%;
+    }
+    .lobby-grid-accent {
+        display: none;
+    }
 }
 
 @media (max-width: 420px) {
