@@ -217,37 +217,76 @@ button:focus-visible {
 }
 
 .lobby-screen {
-    overflow: hidden;
+    overflow-x: hidden;
     position: relative;
 }
 
+/* Subtle top-edge cyan glow line */
 .lobby-screen::before {
-    background: var(--cyan);
-    box-shadow: 0 0 70px 30px rgba(82, 230, 224, 0.11);
+    background: linear-gradient(90deg, transparent, var(--cyan), transparent);
     content: "";
     height: 1px;
-    left: 10%;
+    left: 0;
+    opacity: 0.35;
     position: absolute;
-    top: 18%;
-    width: 80%;
+    top: 0;
+    width: 100%;
 }
 
-.lobby-shell {
-    animation: lobby-rise 600ms ease-out both;
+/* ── event-status header ─────────────────────────────────────── */
+.lobby-event-header {
+    border-bottom: 1px solid var(--line);
+    min-height: 3.2rem;
     position: relative;
-    width: 100%;
     z-index: 1;
 }
 
-.brand-lockup {
-    margin-bottom: 2.5rem;
+.lobby-event-label {
+    align-items: center;
+    color: var(--cyan);
+    display: flex;
+    font-family: "Courier New", monospace;
+    font-size: 0.65rem;
+    font-weight: 700;
+    gap: 0.5rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.lobby-event-brand {
+    color: var(--text);
+    font-family: "Courier New", monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.lobby-event-brand span {
+    color: var(--cyan);
+}
+
+/* ── lobby main shell ────────────────────────────────────────── */
+.lobby-shell {
+    flex: 1 1 auto;
+}
+
+.lobby-content {
+    animation: lobby-rise 600ms ease-out both;
+    position: relative;
+    z-index: 1;
+}
+
+/* ── headline ────────────────────────────────────────────────── */
+.lobby-headline {
+    text-align: left;
 }
 
 .brand-kicker,
 .modal-kicker,
 .round-indicator,
 .header-brand,
-.panel-heading h2 {
+.briefing-tag {
     font-family: "Courier New", monospace;
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -255,17 +294,18 @@ button:focus-visible {
 
 .brand-kicker {
     color: var(--cyan);
-    font-size: 0.68rem;
+    display: block;
+    font-size: 0.65rem;
     font-weight: 700;
 }
 
 .brand-title {
     color: var(--text);
     font-family: Impact, "Arial Narrow", sans-serif;
-    font-size: clamp(4rem, 15vw, 6.5rem);
+    font-size: clamp(3.2rem, 13vw, 5.5rem);
     letter-spacing: 0.02em;
-    line-height: 0.9;
-    margin: 0.65rem 0 0;
+    line-height: 0.92;
+    margin: 0.5rem 0 0;
     text-transform: uppercase;
 }
 
@@ -277,59 +317,93 @@ button:focus-visible {
 .brand-subtitle {
     color: var(--muted);
     font-family: "Courier New", monospace;
-    font-size: 0.9rem;
-    margin: 0.8rem 0 0;
+    font-size: 0.8rem;
+    line-height: 1.6;
+    margin: 0.9rem 0 0;
 }
 
-.instructions-panel {
+/* ── briefing panel ──────────────────────────────────────────── */
+.briefing-panel {
     background: rgba(16, 22, 29, 0.92);
     border: 1px solid var(--line);
     border-left: 3px solid var(--cyan);
-    box-shadow: 12px 12px 0 rgba(82, 230, 224, 0.04);
-    padding: 1.25rem;
+    box-shadow: 6px 6px 0 rgba(82, 230, 224, 0.04);
+    padding: 1rem 1.25rem 1.25rem;
 }
 
-.panel-heading {
-    align-items: center;
+.briefing-header {
     border-bottom: 1px solid var(--line);
-    display: flex;
-    gap: 0.6rem;
     margin-bottom: 1rem;
-    padding-bottom: 0.8rem;
+    padding-bottom: 0.65rem;
 }
 
-.panel-heading h2 {
-    color: var(--text);
-    font-size: 0.75rem;
-    margin: 0;
+.briefing-tag {
+    color: var(--cyan);
+    font-size: 0.62rem;
+    font-weight: 700;
 }
 
-.status-dot {
-    background: var(--lime);
-    border-radius: 50%;
-    box-shadow: 0 0 8px var(--lime);
-    display: inline-block;
-    height: 7px;
-    width: 7px;
-}
-
-.instructions-list {
-    color: var(--muted);
-    font-size: 0.85rem;
+.briefing-steps {
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-.instructions-list li + li {
-    margin-top: 0.8rem;
+.briefing-step {
+    align-items: baseline;
+    display: flex;
+    gap: 0.75rem;
+    padding: 0.55rem 0;
 }
 
-.instructions-list li span {
+.briefing-step + .briefing-step {
+    border-top: 1px solid rgba(43, 57, 71, 0.6);
+}
+
+.step-num {
     color: var(--cyan);
+    flex-shrink: 0;
     font-family: "Courier New", monospace;
-    font-size: 0.72rem;
-    margin-right: 0.65rem;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    min-width: 1.6rem;
+}
+
+.step-text {
+    color: var(--muted);
+    font-size: 0.85rem;
+    line-height: 1.45;
+}
+
+/* ── status dot (shared with game header) ────────────────────── */
+.status-dot {
+    background: var(--cyan);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--cyan);
+    display: inline-block;
+    flex-shrink: 0;
+    height: 7px;
+    width: 7px;
+}
+
+/* ── lobby status bar ────────────────────────────────────────── */
+.lobby-status-bar {
+    align-items: center;
+    color: var(--muted);
+    display: flex;
+    font-family: "Courier New", monospace;
+    font-size: 0.62rem;
+    gap: 0.5rem;
+    justify-content: center;
+    letter-spacing: 0.08em;
+    margin-top: 1.25rem;
+    text-transform: uppercase;
+    flex-wrap: wrap;
+}
+
+.status-divider {
+    color: var(--line);
 }
 
 .primary-action {
@@ -358,15 +432,6 @@ button:focus-visible {
 .action-arrow {
     font-family: "Courier New", monospace;
     font-size: 1.2em;
-}
-
-.lobby-footnote {
-    color: #52606d;
-    font-family: "Courier New", monospace;
-    font-size: 0.67rem;
-    letter-spacing: 0.08em;
-    margin: 1.5rem 0 0;
-    text-transform: uppercase;
 }
 
 .game-screen {
@@ -524,8 +589,8 @@ button:focus-visible {
 @media (max-width: 420px) {
     .lobby-screen,
     .board-stage { padding-left: 0.75rem; padding-right: 0.75rem; }
-    .brand-lockup { margin-bottom: 2rem; }
-    .brand-title { font-size: 4rem; }
+    .lobby-shell { padding-left: 0.75rem; padding-right: 0.75rem; }
+    .brand-title { font-size: 3rem; }
     .bingo-grid { gap: 0.25rem; }
     .bingo-tile { font-size: 0.67rem; min-height: 54px; padding: 0.25rem; }
 }
